@@ -4,7 +4,23 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
+
+func convertNumber(str string) uint8 {
+	nums := []string{
+		"one", "two", "three", "four", "five",
+		"six", "seven", "eight", "nine",
+	}
+
+	for i, v := range nums {
+		if strings.HasPrefix(str, v) {
+			return uint8(i) + 1
+		}
+	}
+
+	return 0
+}
 
 func getNumber(str string) int {
 	var firstDigit, lastDigit uint8
@@ -13,10 +29,20 @@ func getNumber(str string) int {
 			firstDigit = str[i] - '0'
 			break
 		}
+
+		if n := convertNumber(str[i:]); n > 0 {
+			firstDigit = n
+			break
+		}
 	}
 	for i := len(str) - 1; i >= 0; i-- {
 		if str[i] > 47 && str[i] < 58 {
 			lastDigit = str[i] - '0'
+			break
+		}
+
+		if n := convertNumber(str[i:]); n > 0 {
+			lastDigit = n
 			break
 		}
 	}
@@ -36,10 +62,10 @@ func Day1() {
 
 	sum := 0
 	for fileScanner.Scan() {
-    line := fileScanner.Text()
-    num := getNumber(line)
-    sum += num
-    fmt.Println(num, line)
+		line := fileScanner.Text()
+		num := getNumber(line)
+		sum += num
+		fmt.Println(num, line)
 	}
 	fmt.Println(sum)
 }
