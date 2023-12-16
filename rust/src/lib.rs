@@ -1,4 +1,4 @@
 mod problems;
-pub use problems::day1::day1;
+pub use problems::day1;
 
 
