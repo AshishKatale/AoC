@@ -6,7 +6,7 @@ pub fn solve() {
         .lines()
         .map(transform)
         .sum();
-    println!("{sum}")
+    println!("day1: {sum}")
 }
 
 fn transform(line: &str) -> i32 {
